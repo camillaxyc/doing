@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-
+import { useRouter } from "next/navigation";
 export default function Todo() {
   const [todoList, setTodoList] = useState<string[]>([
     "Do homework",
@@ -8,6 +8,12 @@ export default function Todo() {
   ]);
 
   const [completedTask, setCompletedTask] = useState<string[]>([]);
+  const router = useRouter();
+
+  const goToTask = (task: string) => {
+    const formattedTask = task.replace(/\s+/g, "-"); // Replace spaces with hyphens
+    router.push(`/task/${formattedTask}`); // Navigate to the dynamic task route
+  };
 
   const [addedTask, setAddedTask] = useState("");
   const addTask = (task: string) => {
@@ -180,6 +186,13 @@ export default function Todo() {
                 </button>
               </div>
               <TodoItem item={item} index={index} setTodoList={setTodoList} />
+              <div
+                onClick={() => {
+                  goToTask(item);
+                }}
+              >
+                <p>Help</p>
+              </div>
               <div className="">
                 <button
                   className="px-3 py-3 rounded cursor-pointer"
@@ -210,7 +223,9 @@ const ProgressBar = ({ progress }: { progress: number }) => {
         ></div>
       </div>
       <div>Progress</div>
-      <div>You got this!!</div>
+      <div>
+        {progress === 100 ? "Good job!! You finished!" : "You got this!!"}
+      </div>
     </div>
   );
 };
@@ -221,7 +236,11 @@ type TodoItemProps = {
   setTodoList: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const TodoItem: React.FC<TodoItemProps> = ({ item, index, setTodoList }) => {
+export const TodoItem: React.FC<TodoItemProps> = ({
+  item,
+  index,
+  setTodoList,
+}) => {
   const [editTask, setEditTask] = useState(item);
   return (
     <input

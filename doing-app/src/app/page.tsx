@@ -20,7 +20,9 @@ export default function Home() {
         </Link>
       </div>
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <h1 className="text-3xl">Doing!</h1>
+        <Link href={"./"} className="text-3xl">
+          Doing!
+        </Link>
         <Todo />
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
