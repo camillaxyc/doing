@@ -5,7 +5,6 @@ import { useState } from "react";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-8 pb-20 font-[family-name:var(--font-geist-sans)]">
       <div className="flex flex-col items-center gap-12 p-8 border-2 border-transparent rounded-2xl bg-gray-300/20">
