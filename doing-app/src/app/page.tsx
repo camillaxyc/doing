@@ -67,7 +67,7 @@ export default function Home() {
             width={16}
             height={16}
           />
-          Camilla's Github
+          Camilla&apos; Github
         </a>
       </footer>
     </div>
