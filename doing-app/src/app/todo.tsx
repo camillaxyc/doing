@@ -42,7 +42,6 @@ export default function Todo() {
   }
 
   const GenerateIdea = () => {
-    const [category, setCategory] = useState<string>("");
     const [dropDown, setDropDown] = useState<boolean>(false);
     return (
       <div className="flex-1 relative">
@@ -150,7 +149,6 @@ export default function Todo() {
           value={addedTask}
           onChange={(e) => {
             setAddedTask(e.target.value);
-            console.log(addedTask);
           }}
         ></input>
       </div>
