@@ -56,7 +56,7 @@ export default function Home() {
         </a>
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+          href="https://github.com/camillaxyc/"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -67,22 +67,9 @@ export default function Home() {
             width={16}
             height={16}
           />
-          Go to nextjs.org →
+          Camilla's Github
         </a>
       </footer>
     </div>
   );
-}
-
-{
-  /* <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol> */
 }
