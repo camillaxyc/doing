@@ -263,7 +263,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
         newInput.focus();
       }
     }
-  }, [todoList.length]);
+  }, [todoList.length, index]);
 
   return (
     <input

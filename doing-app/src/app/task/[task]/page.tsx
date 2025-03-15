@@ -1,8 +1,8 @@
 "use client";
 
-import Todo, { TodoItem } from "@/app/todo";
+import { TodoItem } from "@/app/todo";
 import Link from "next/link";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Task() {
