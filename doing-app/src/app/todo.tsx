@@ -53,87 +53,39 @@ export default function Todo() {
 
   const GenerateIdea = () => {
     const [dropDown, setDropDown] = useState<boolean>(false);
+
+    const categories = [
+      { label: "Random", category: "" },
+      { label: "Relaxing", category: "relaxation" },
+      { label: "Educational", category: "education" },
+      { label: "Fun", category: "recreational" },
+      { label: "Busywork", category: "busywork" },
+      { label: "With friends", category: "social" },
+      { label: "DIY Stuff", category: "diy" },
+      { label: "Music", category: "music" },
+    ];
+
     return (
       <div className="flex-1 relative">
         <button
           className="bg-blue-600 h-8 w-full rounded-sm cursor-pointer text-white"
-          onClick={() => {
-            setDropDown(!dropDown);
-          }}
+          onClick={() => setDropDown(!dropDown)}
         >
           Generate Ideas
         </button>
         <div
           className="flex-col h-32 w-full overflow-y-scroll z-10 absolute bg-gray-100 dark:bg-gray-900 gap-2 rounded-sm"
-          style={{ display: `${dropDown ? "flex" : "none"}` }}
-          onClick={() => {
-            setDropDown(!dropDown);
-          }}
+          style={{ display: dropDown ? "flex" : "none" }}
         >
-          <div
-            className="cursor-pointer hover:bg-gray-400/[.2] p-2"
-            onClick={() => {
-              getActivity({ category: "" });
-            }}
-          >
-            Random
-          </div>
-          <div
-            className="cursor-pointer hover:bg-gray-400/[.2] p-2"
-            onClick={() => {
-              getActivity({ category: "relaxation" });
-            }}
-          >
-            Relaxing
-          </div>
-          <div
-            className="cursor-pointer hover:bg-gray-400/[.2] p-2"
-            onClick={() => {
-              getActivity({ category: "education" });
-            }}
-          >
-            Educational
-          </div>
-          <div
-            className="cursor-pointer hover:bg-gray-400/[.2] p-2"
-            onClick={() => {
-              getActivity({ category: "recreational" });
-            }}
-          >
-            Fun
-          </div>
-          <div
-            className="cursor-pointer hover:bg-gray-400/[.2] p-2"
-            onClick={() => {
-              getActivity({ category: "busywork" });
-            }}
-          >
-            Busywork
-          </div>
-          <div
-            className="cursor-pointer hover:bg-gray-400/[.2] p-2"
-            onClick={() => {
-              getActivity({ category: "social" });
-            }}
-          >
-            With friends
-          </div>
-          <div
-            className="cursor-pointer hover:bg-gray-400/[.2] p-2"
-            onClick={() => {
-              getActivity({ category: "diy" });
-            }}
-          >
-            DIY Stuff
-          </div>
-          <div
-            className="cursor-pointer hover:bg-gray-400/[.2] p-2"
-            onClick={() => {
-              getActivity({ category: "music" });
-            }}
-          >
-            Music
-          </div>
+          {categories.map(({ label, category }) => (
+            <div
+              key={category}
+              className="cursor-pointer hover:bg-gray-400/[.2] p-2"
+              onClick={() => getActivity({ category })}
+            >
+              {label}
+            </div>
+          ))}
         </div>
       </div>
     );
@@ -200,7 +152,9 @@ export default function Todo() {
                   goToTask(item);
                 }}
               >
-                <p>Help</p>
+                <div className="cursor-pointer p-2 hover:bg-gray-400/[0.2] rounded-sm">
+                  Help
+                </div>
               </div>
               <div className="">
                 <button

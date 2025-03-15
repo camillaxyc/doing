@@ -10,8 +10,9 @@ export default function Task() {
 
   const [task, setTask] = useState<string | null>(null);
   const [taskStep, setTaskStep] = useState<string[]>([
-    "Getting started",
-    "Research Topic",
+    "Getting started is a step too :)",
+    "Research about the task",
+    "Press [Enter] for new step",
   ]);
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export default function Task() {
               <div className="underline">Steps on for your Task</div>
               <ol>
                 {taskStep.map((item, index) => (
-                  <li key={item + index} className="flex flex-row">
+                  <li key={item + index} className="flex flex-row border-b-2">
                     <div className="p-3">{index + 1 + ") "}</div>
                     <TodoItem
                       item={item}
