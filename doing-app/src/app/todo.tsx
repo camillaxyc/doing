@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 export default function Todo() {
   const [todoList, setTodoList] = useState<string[]>([
@@ -17,10 +17,14 @@ export default function Todo() {
 
   const [addedTask, setAddedTask] = useState("");
   const addTask = (task: string) => {
-    if (task.trim() === "") return;
-
     setTodoList((prev) => [...prev, task]);
     setAddedTask("");
+    const nextInput = document.querySelector(
+      `input[data-index="${todoList.length - 1}"]`
+    ) as HTMLInputElement;
+    if (nextInput) {
+      nextInput.focus();
+    }
   };
 
   const removeTask = (indexToRemove: number) => {
@@ -185,7 +189,12 @@ export default function Todo() {
                   </div>
                 </button>
               </div>
-              <TodoItem item={item} index={index} setTodoList={setTodoList} />
+              <TodoItem
+                item={item}
+                index={index}
+                setTodoList={setTodoList}
+                todoList={todoList}
+              />
               <div
                 onClick={() => {
                   goToTask(item);
@@ -222,7 +231,7 @@ const ProgressBar = ({ progress }: { progress: number }) => {
           style={{ width: `${progress}%` }}
         ></div>
       </div>
-      <div>Progress</div>
+      <div>{progress === 100 ? "COMPLETE" : "Progress"}</div>
       <div>
         {progress === 100 ? "Good job!! You finished!" : "You got this!!"}
       </div>
@@ -234,26 +243,56 @@ type TodoItemProps = {
   item: string;
   index: number;
   setTodoList: React.Dispatch<React.SetStateAction<string[]>>;
+  todoList: string[];
 };
 
 export const TodoItem: React.FC<TodoItemProps> = ({
   item,
   index,
   setTodoList,
+  todoList,
 }) => {
   const [editTask, setEditTask] = useState(item);
+
+  useEffect(() => {
+    if (index === todoList.length - 1) {
+      const newInput = document.querySelector(
+        `input[data-index="${index}"]`
+      ) as HTMLInputElement;
+      if (newInput) {
+        newInput.focus();
+      }
+    }
+  }, [todoList.length]);
+
   return (
     <input
       maxLength={50}
       className="p-1 w-full"
       defaultValue={item}
+      placeholder="Enter Text"
       onChange={(e) => {
         setEditTask(e.target.value);
       }}
+      data-index={index}
       onBlur={() => {
         setTodoList((prevItems) =>
           prevItems.map((oldItem, i) => (i === index ? editTask : oldItem))
         );
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+
+          const nextInput = document.querySelector(
+            `input[data-index="${index + 1}"]`
+          ) as HTMLInputElement;
+          if (nextInput) {
+            nextInput.focus();
+          } else {
+            setTodoList((prev) => [...prev, ""]);
+          }
+        }
       }}
     />
   );

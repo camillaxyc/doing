@@ -11,7 +11,7 @@ export default function Task() {
   const [task, setTask] = useState<string | null>(null);
   const [taskStep, setTaskStep] = useState<string[]>([
     "Getting started",
-    "Rearch Topic",
+    "Research Topic",
   ]);
 
   useEffect(() => {
@@ -26,6 +26,10 @@ export default function Task() {
     setTask(task.replace(/-/g, " "));
   }, [params]);
 
+  const removeTask = (indexToRemove: number) => {
+    setTaskStep((prev) => prev.filter((_, index) => index !== indexToRemove));
+  };
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-2 pb-2 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <Link href={"../"} className="text-3xl">
@@ -39,20 +43,38 @@ export default function Task() {
           <div>
             Break your task into smaller parts and add notes to help guide you
           </div>
-          <div className="flex flex-row min-h-16 justify-around gap-8">
-            <div className="flex flex-col justify-center items-center">
-              <div>Notes</div>
+          <div className="flex flex-row min-h-16 justify-center gap-8">
+            <div className="flex flex-col justify-start items-center p-2 gap-2">
+              <div className="underline">Notes</div>
               <textarea
-                className="resize-none h-8 border-1 rounded-sm px-2"
+                className="resize-none min-h-40 border-1 rounded-sm px-2"
                 placeholder="Notes for your task"
               ></textarea>
             </div>
-            <div className="flex flex-col justify-center items-center">
-              <div>Steps on for your Task</div>
+            <div className="flex flex-col justify-start items-center p-2 gap-2">
+              <div className="underline">Steps on for your Task</div>
               <ol>
-                <li>
-                  <TodoItem item={""} index={2} setTodoList={setTaskStep} />
-                </li>
+                {taskStep.map((item, index) => (
+                  <li key={item + index} className="flex flex-row">
+                    <div className="p-3">{index + 1 + ") "}</div>
+                    <TodoItem
+                      item={item}
+                      index={index}
+                      setTodoList={setTaskStep}
+                      todoList={taskStep}
+                    />
+                    <div className="">
+                      <button
+                        className="px-3 py-3 rounded cursor-pointer"
+                        onClick={() => {
+                          removeTask(index);
+                        }}
+                      >
+                        ❌
+                      </button>
+                    </div>
+                  </li>
+                ))}
               </ol>
             </div>
           </div>
